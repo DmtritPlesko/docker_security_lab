@@ -1,0 +1,11 @@
+# Эпизод 2: Эксплуатация
+
+Цель: Взломать небезопасную конфигурацию
+
+Команда для запуска:**
+
+docker run -it --rm \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /:/host \
+  --privileged \
+  vulnerable-app:latest
