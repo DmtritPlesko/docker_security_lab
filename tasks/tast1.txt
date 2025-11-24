@@ -3,6 +3,6 @@
 Цель: Найти уязвимости в Dockerfile
 
 Шаги:
-1. Изучите Dockerfile в текущей директории
+1. Изучите Dockerfile в директории
 2. Найдите 5 ошибок безопасности
-3. Запустите контейнер: `docker run -it vulnerable-app:latest`
+3. Запустите контейнер: `docker run -it fixed-Dockerfile:latest`

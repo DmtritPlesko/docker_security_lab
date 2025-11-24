@@ -6,6 +6,7 @@ if ! command -v docker &> /dev/null; then
     curl -fsSL https://get.docker.com -o get-docker.sh
     sh get-docker.sh
     sudo usermod -aG docker $USER
+    echo "⚠️  Перезапустите терминал или выполните: newgrp docker"
 fi
 
 # Создание рабочей директории
@@ -14,7 +15,7 @@ cd docker-security-lab
 
 # Создание уязвимого Dockerfile
 cat > Dockerfile << 'EOF'
-    FROM ubuntu:20.04
+    FROM ubuntu:latest
 
     RUN apt-get update && apt-get install -y \
         nginx \
@@ -39,15 +40,4 @@ echo "echo 'App is running...'" >> secret-app
 echo "sleep infinity" >> secret-app
 chmod +x secret-app
 
-echo "flag{container_escape_success}" > flag.txt
-
-# Сборка уязвимого образа
-docker build -t vulnerable-app:latest .
-
-# Скачивание Docker Bench Security
-git clone https://github.com/docker/docker-bench-security.git
-
-echo "Проверка установки..."
-docker images | grep vulnerable-app && echo "✅ Образ собран" || echo "❌ Ошибка сборки"
-[ -f "flag.txt" ] && echo "✅ Файлы созданы" || echo "❌ Ошибка создания файлов"
-echo "🎉 Установка завершена! Перейдите к task1.md"
+echo "flag{container_escape_success_$(date +%s)}" > flag.txt
